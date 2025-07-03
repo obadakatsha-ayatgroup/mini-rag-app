@@ -16,3 +16,8 @@ $ conda create -n mini-rag python=3.10
 ```bash
 $ conda activate mini-rag
 ```
+### Setup the environment variables
+```bash
+$ cp .env.examples .env
+```
+Set your environment variables in the `.env` file. Like `HF_ACCESS_TOKEN` value
