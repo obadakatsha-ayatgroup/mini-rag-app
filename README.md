@@ -21,3 +21,8 @@ $ conda activate mini-rag
 $ cp .env.examples .env
 ```
 Set your environment variables in the `.env` file. Like `HF_ACCESS_TOKEN` value
+
+## Run the FastAPI server
+```bash
+$ uvicorn main:app --reload 0.0.0.0 --port 8000
+```
