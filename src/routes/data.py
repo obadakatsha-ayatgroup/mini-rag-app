@@ -6,7 +6,9 @@ from controllers import DataController, ProjectController, ProcessController
 import aiofiles  # type: ignore
 from models import ResponseSignal
 import logging
-from .schemas.data import ProcessRequest
+from .schemes.data import ProcessRequest
+from langchain_core.documents import Document
+
 
 
 logger = logging.getLogger('uvicorn.error')
@@ -17,7 +19,7 @@ data_router = APIRouter(
 
 @data_router.post('/upload/{project_id}')
 async def upload_data(project_id: str, file: UploadFile,
-                        app_setting:Settings=Depends(get_settings)):
+                        app_setting:Settings=Depends(get_settings)) -> JSONResponse:
 
     is_valid, result_signal = DataController().validate_uploaded_file(file=file)
     
@@ -54,7 +56,7 @@ async def upload_data(project_id: str, file: UploadFile,
     )
     
 @data_router.post('/process/{project_id}')
-async def process_endpoint(project_id: str, process_request: ProcessRequest):
+async def process_endpoint(project_id: str, process_request: ProcessRequest) -> JSONResponse | list[Document]:
     
     file_id = process_request.file_id
     chunk_size = process_request.chunck_size
