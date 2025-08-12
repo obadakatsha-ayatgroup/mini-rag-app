@@ -22,6 +22,20 @@ $ cp .env.examples .env
 ```
 Set your environment variables in the `.env` file. Like `HF_ACCESS_TOKEN` value
 
+## Run Docker Compose Services
+
+```bash
+$ cd docker
+$ cp .env.example .env
+```
+- Update `.env` with your credentials 
+
+
+```bash
+$ cd docker
+$ sudo docker compose up -d
+```
+
 ## Run the FastAPI server
 ```bash
 $ uvicorn main:app --reload --host 127.0.0.1 --port 8000
