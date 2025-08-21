@@ -34,7 +34,7 @@ class OpenAIProvider(LLMInterface):
         self.embedding_size = embedding_size
 
     def process_txt(self, txt: str):
-        return txt[:self.default_generation_output_max_tokens].strip()
+        return txt[:self.default_input_max_char].strip()
 
     def generate_txt(self, prompt: str, chat_history: list=None, max_output_token: int=None,
                      temperature: float=None):
