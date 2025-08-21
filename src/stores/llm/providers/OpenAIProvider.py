@@ -33,6 +33,9 @@ class OpenAIProvider(LLMInterface):
         self.embedding_model_id = model_id
         self.embedding_size = embedding_size
 
+    def process_txt(self, txt: str):
+        return txt[:self.default_generation_output_max_tokens].strip()
+
     def generate_txt(self, prompt: str, chat_history: list=None, max_output_token: int=None,
                      temperature: float=None):
         if not self.client:
@@ -58,8 +61,6 @@ class OpenAIProvider(LLMInterface):
             return None
         return response.choices[0].message.content
     
-    def process_txt(self, txt: str):
-        pass
 
     def embed_txt(self, txt: str, document_type: str):
         if not self.client:
