@@ -10,3 +10,4 @@ langchain-community==0.3.27
 motor==3.7.1
 openai==1.100.2
 cohere==5.17.0
+qdrant-client==1.15.1
