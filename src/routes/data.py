@@ -84,6 +84,9 @@ async def process_endpoint(request: Request, project_id: str, process_request: P
     project = await project_model.get_project_or_create_one(project_id=project_id)
 
     asset_model = await AssetModel.create_instance(db_client=request.app.db_client)
+    chunk_model = await ChunkModel.create_instance(
+        db_client=request.app.db_client
+    )
     
     project_file_ids = []
     if process_request.file_id:
@@ -151,9 +154,6 @@ async def process_endpoint(request: Request, project_id: str, process_request: P
             for i, chunk in enumerate(file_chunks)
         ]
         
-        chunk_model = await ChunkModel.create_instance(
-            db_client=request.app.db_client
-        )
 
         
 
