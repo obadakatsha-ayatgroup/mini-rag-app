@@ -66,6 +66,7 @@ class QdrantProvider(VectorDBInterface):
                 collection_name=collection_name,
                 records=[
                         models.Record(
+                            id=[record_id],
                             vector=vector,
                                     payload={
                                             "text": txt,
@@ -89,7 +90,7 @@ class QdrantProvider(VectorDBInterface):
             meta_data = [None] * len(txts)
         
         if record_ids is None:
-            record_ids = [None] * len(txts)
+            record_ids = list(range[0, len(txts)])
 
         for i in range(0, len(txts), batch_size):
             batch_end = i+batch_size
@@ -97,9 +98,11 @@ class QdrantProvider(VectorDBInterface):
             batch_txt = txts[i: batch_end]
             batch_vectors = vectors[i: batch_end]
             batch_mata_data = meta_data[i: batch_end]
+            batch_records_ids = record_ids[i: batch_end]
             
             batch_records = [
                 models.Record(
+                id=batch_records_ids[x],
                 vector=batch_vectors[x],
                         payload={
                             "text": batch_txt[x],
