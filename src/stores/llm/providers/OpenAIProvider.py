@@ -56,7 +56,7 @@ class OpenAIProvider(LLMInterface):
             max_tokens=max_output_token,
             temperature=temperature
         )
-        if not response or response.choices or len(response.choices)==0 or not response.choices[0].message:
+        if not response or not response.choices or len(response.choices)==0 or not response.choices[0].message:
             self.logger.error("Error while generating text with OpenAI")
             return None
         return response.choices[0].message.content
