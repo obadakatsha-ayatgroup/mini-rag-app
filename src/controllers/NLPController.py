@@ -85,7 +85,6 @@ class NLPController(BaseController):
             text=query,
             limit=limit
         )
-
         if not retrieved_documents or len(retrieved_documents) == 0:
             return answer, full_prompt, chat_history
         
@@ -100,7 +99,9 @@ class NLPController(BaseController):
             for idx, doc in enumerate(retrieved_documents)
         ])
 
-        footer_prompt = self.template_parser.get("rag", "footer_prompt")
+        footer_prompt = self.template_parser.get("rag", "footer_prompt", {
+            "query": query
+        })
 
         chat_history = [
             self.generation_client.construct_prompt(
