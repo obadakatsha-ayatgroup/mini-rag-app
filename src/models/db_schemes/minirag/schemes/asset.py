@@ -19,7 +19,8 @@ class Asset(SQLAlchemyBase):
     updated_at = Column(DateTime(timezone=True), onupdate=func.now(), nullable=True)
 
     asset_project_id = Column(Integer, ForeignKey("projects.project_id"), nullable=False)
-    project = relationship("Project", back_populates="assets")
+    projects = relationship("Project", back_populates="assets")
+    chunks = relationship("DataChunk", back_populates="asset")
 
     __teble_args__ = (
         Index("ix_asset_project_id", asset_project_id),
