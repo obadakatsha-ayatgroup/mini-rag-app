@@ -141,7 +141,6 @@ class PgVectorProvider(VectorDBInterface):
                 records_count = results.scalar_one()
 
                 if records_count < self.index_threshold:
-                    self.logger.info(f"Record count ({records_count}) below threshold ({self.index_threshold}) for {collection_name}")
                     return False
                 
                 self.logger.info(f"START: Creating vector index for collection: {collection_name}")
