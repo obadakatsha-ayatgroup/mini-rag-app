@@ -20,8 +20,8 @@ class ChunkModel(BaseDataModel):
         async with self.db_client() as session:
             async with session.begin():
                 session.add(chunk)
-            await session.commit()
-            await session.refresh(chunk)
+                await session.commit()
+                await session.refresh(chunk)
         return chunk
     
     async def get_chunk(self, chunk_id: str) -> DataChunk:
@@ -37,7 +37,6 @@ class ChunkModel(BaseDataModel):
                 for i in range(0, len(chunks), batch_size):
                     batch = chunks[i:i+batch_size]
                     session.add_all(batch)
-                await session.commit()
         return len(chunks)
     
     async def delete_chunks_by_project_id(self, project_id: ObjectId):

@@ -47,9 +47,10 @@ class ProcessController(BaseController):
         else:
             return None
     
-    def process_file_content(self, file_content: list, chunk_size: int, overlap_size: int):
+    def process_file_content(self, file_content: list, file_id: str,
+                            chunk_size: int=100, overlap_size: int=20):
 
-        file_content_text = [
+        file_content_texts = [
             rec.page_content
             for rec in file_content
         ]
@@ -59,10 +60,15 @@ class ProcessController(BaseController):
             for rec in file_content
         ]
 
+        # chunks = text_splitter.create_documents(
+        #     file_content_texts,
+        #     metadatas=file_content_metadata
+        # )
+
         chunks = self.process_simpler_splitter(
-            text=file_content_text,
+            text=file_content_texts,
             metadatas=file_content_metadata,
-            chunk_size=chunk_size
+            chunk_size=chunk_size,
         )
 
         return chunks
